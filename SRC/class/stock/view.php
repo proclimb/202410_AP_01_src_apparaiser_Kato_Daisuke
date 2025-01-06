@@ -40,7 +40,7 @@ function subStockView($param)
 					<th>距離</th>
 					<td>
 						<?php
-						for ($i = 0; $i < 5; $i++) {
+						for ($i = 0; $i < 4; $i++) {
 						?>
 							<input type="checkbox" name="sDistance[]" value="<?php print $i + 1; ?>" <?php for ($j = 0; $j < 4; $j++) {
 																											if ($param["sDistance"][$j] == $i + 1) print ' checked="checked"';
@@ -151,7 +151,9 @@ function subStockView($param)
 				$sql  = fnSqlStockList(1, $param);
 				$res  = mysqli_query($param["conn"], $sql);
 				$i = 0;
+				// 2025/1/6 仕入管理一覧の検索結果から修正
 				while ($row = mysqli_fetch_array($res)) {
+					/* 修正前
 					$stockNo     = htmlspecialchars($row[1]);
 					$charge      = htmlspecialchars($row[2]);
 					$rank        = fnRankName(htmlspecialchars($row[3] - 1));
@@ -169,6 +171,26 @@ function subStockView($param)
 					$deskPrice   = htmlspecialchars(fnNumFormat($row[15]));
 					$vendorPrice = htmlspecialchars(fnNumFormat($row[16]));
 					$note        = htmlspecialchars($row[17]);
+					*/
+
+					// 修正後
+					$stockNo     = htmlspecialchars($row[0]);
+					$charge      = htmlspecialchars($row[1]);
+					$rank        = fnRankName(htmlspecialchars($row[2] - 1));
+					$insDT       = htmlspecialchars($row[3]);
+					$article     = htmlspecialchars($row[4]);
+					$room        = htmlspecialchars($row[5]);
+					$area        = htmlspecialchars($row[6]);
+					$station     = htmlspecialchars($row[7]);
+					$distance    = fnRankName(htmlspecialchars($row[8] - 1));
+					$agent       = htmlspecialchars($row[9]);
+					$store       = htmlspecialchars($row[10]);
+					$cover       = htmlspecialchars($row[11]);
+					$visitDT     = htmlspecialchars($row[12]);
+					$deskPrice   = htmlspecialchars(fnNumFormat($row[13]));
+					$vendorPrice = htmlspecialchars(fnNumFormat($row[14]));
+					$note        = htmlspecialchars($row[15]);
+
 				?>
 					<tr>
 						<td class="list_td<?php print $i; ?>"><?php print $charge; ?></td>
