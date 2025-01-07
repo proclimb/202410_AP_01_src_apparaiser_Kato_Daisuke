@@ -110,7 +110,10 @@ function subStockView($param)
 			</table>
 		</div>
 
+		<!--修正前コード
 		<input type="image" src="./images/btn_search.png" onclick="form.act.value='stockEditComplete';form.submit();" />
+		-->
+		<input type="image" src="./images/btn_search.png" onclick="form.act.value='stockSearch';form.submit();" />
 
 		<hr />
 
@@ -120,6 +123,7 @@ function subStockView($param)
 		}
 
 		$sql = fnSqlStockList(1, $param);
+		//修正後 $sql = fnSqlStockList(1, $param, $param["sDel"], $param["sInsDTFrom"], $param["sInsDTTo"], $param["sCharge"], $param["sRank"], $param["sArticle"], $param["sArticleFuri"], $param["sAreaFrom"], $param["sAreaTo"], $param["sStation"], $param["sDistance"], $param["sAgent"], $param["sStore"], $param["sCover"], $param["sVisitDTFrom"], $param["sVisitDTTo"], $param["sHow"], $param["orderBy"], $param["orderTo"], $param["sPage"], $param["stockNo"]);
 		$res = mysqli_query($param["conn"], $sql);
 		$row = mysqli_fetch_array($res);
 
@@ -148,10 +152,12 @@ function subStockView($param)
 					<th class="list_head">備考<?php fnOrder('NOTE', 'stockSearch') ?></th>
 				</tr>
 				<?php
-				$sql  = fnSqlStockList(1, $param);
+				$sql = fnSqlStockList(1, $param);
+				//修正後 $sql = fnSqlStockList(1, $param, $param["sDel"], $param["sInsDTFrom"], $param["sInsDTTo"], $param["sCharge"], $param["sRank"], $param["sArticle"], $param["sArticleFuri"], $param["sAreaFrom"], $param["sAreaTo"], $param["sStation"], $param["sDistance"], $param["sAgent"], $param["sStore"], $param["sCover"], $param["sVisitDTFrom"], $param["sVisitDTTo"], $param["sHow"], $param["orderBy"], $param["orderTo"], $param["sPage"], $param["stockNo"]);
+
 				$res  = mysqli_query($param["conn"], $sql);
 				$i = 0;
-				// 2025/1/6 仕入管理一覧の検索結果から修正
+
 				while ($row = mysqli_fetch_array($res)) {
 					/* 修正前
 					$stockNo     = htmlspecialchars($row[1]);
@@ -179,17 +185,18 @@ function subStockView($param)
 					$rank        = fnRankName(htmlspecialchars($row[2] - 1));
 					$insDT       = htmlspecialchars($row[3]);
 					$article     = htmlspecialchars($row[4]);
-					$room        = htmlspecialchars($row[5]);
-					$area        = htmlspecialchars($row[6]);
-					$station     = htmlspecialchars($row[7]);
-					$distance    = fnRankName(htmlspecialchars($row[8] - 1));
-					$agent       = htmlspecialchars($row[9]);
-					$store       = htmlspecialchars($row[10]);
-					$cover       = htmlspecialchars($row[11]);
-					$visitDT     = htmlspecialchars($row[12]);
-					$deskPrice   = htmlspecialchars(fnNumFormat($row[13]));
-					$vendorPrice = htmlspecialchars(fnNumFormat($row[14]));
-					$note        = htmlspecialchars($row[15]);
+					$articleFuri = htmlspecialchars($row[5]);
+					$room        = htmlspecialchars($row[6]);
+					$area        = htmlspecialchars($row[7]);
+					$station     = htmlspecialchars($row[8]);
+					$distance    = fnRankName(htmlspecialchars($row[9] - 1));
+					$agent       = htmlspecialchars($row[10]);
+					$store       = htmlspecialchars($row[11]);
+					$cover       = htmlspecialchars($row[12]);
+					$visitDT     = htmlspecialchars($row[13]);
+					$deskPrice   = htmlspecialchars(fnNumFormat($row[14]));
+					$vendorPrice = htmlspecialchars(fnNumFormat($row[15]));
+					$note        = htmlspecialchars($row[16]);
 
 				?>
 					<tr>
@@ -375,7 +382,7 @@ function subStockEditView($param)
 
 		</table>
 
-		<a href="javascript:fnStockEditCheck();"><img src="./images/<?php print $param["btnImage"] ?>" /></a>　
+		<a href="javascript:fnStockEditCheck();"><img src="./images/<?php print $param["btnImage"] ?>" /></a>
 		<a href="javascript:form.act.value='stockEditComplete';form.submit();"><img src="./images/btn_return.png" /></a>
 		<?php
 		if ($param["stockNo"]) {
