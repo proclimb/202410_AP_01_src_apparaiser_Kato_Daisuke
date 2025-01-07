@@ -7,6 +7,7 @@
 function fnYMDCheck(msg, obj) {
 	// 未入力時はチェックしない
 	oYMD = obj.value;
+	// 追加部分
 	if (!oYMD) {
 		return true;
 	}
