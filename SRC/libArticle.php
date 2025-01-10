@@ -19,12 +19,12 @@ function subArticle()
 	$orderTo = $_REQUEST['orderTo'];
 	$sPage   = $_REQUEST['sPage'];
 
-	if ($sDel = '') {
+	if ($sDel == '') {
 		$sDel = 1;
 	}
 
 	if (!$sPage) {
-		$sPage = l;
+		$sPage = 1;
 	}
 
 	if (!$orderBy) {
@@ -52,7 +52,7 @@ function subArticle()
 			<table border="0" cellpadding="2" cellspacing="0">
 				<tr>
 					<th>除外</th>
-					<td><input type="checkbox" name="sDel" value="0" <?php if ($sDel == 0) print ' checked="checked"' ?> /></td>
+					<td><input type="checkbox" name="sDel" value="0" <?php if ($sDel == 0) print ' checked="checked"'; ?> /></td>
 					<th>備考</th>
 					<td><input type="text" name="sArticleNote" value="<?php print $sArticleNote ?>" size="50" /></td>
 				</tr>
@@ -86,8 +86,8 @@ function subArticle()
 		return;
 	}
 	$sql = fnSqlArticleList(0, $sDel, $sArticle, $sRoom, $sKeyPlace, $sArticleNote, $sKeyBox, $sDrawing, $sSellCharge, $sPage, $orderBy, $orderTo);
-	$res = mysql_query($sql);
-	$row = mysql_fetch_array($res);
+	$res = mysqli_query($conn, $sql);
+	$row = mysqli_fetch_array($res);
 
 	$count = $row[0];
 
@@ -188,7 +188,7 @@ function subArticleEdit()
 		$btnImage = 'btn_enter.png';
 	}
 
-	subMenu2();
+	subMenu();
 ?>
 	<script type="text/javascript" src="./js/article.js"></script>
 
@@ -260,8 +260,7 @@ function subArticleEdit()
 		</table>
 
 		<a href="javascript:fnArticleEditCheck();"><img src="./images/<?php print $btnImage ?>" /></a>　
-		<a href="javascript:form.act.value='fManager';form.submit();"><img src="./images/btn_return.png" /></a>
-		&nbsp;&nbsp;<a href="javascript:fnArticleDeleteCheck(<?php print $articleNo ?>);"><img src="./images/btn_del.png" /></a>
+		<a href="javascript:form.act.value='articleSearch';form.submit();"><img src="./images/btn_return.png" /></a>
 	</form>
 <?php
 }
