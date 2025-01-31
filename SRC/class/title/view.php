@@ -142,7 +142,7 @@ function subFTitleEditView($param)
                     <!-- 変更前
                     <th>表示順<span class="red">（必須）</span></th>
                     -->
-                    <th>表示順</th>
+                    <th>表示順<span class="red">（必須）</span></th>
                     <td><input type="text" name="classNo" value="<?php print $param["classNo"]; ?>" />
                         <?php
                         if ($param["classNoChk"]) {
@@ -155,7 +155,7 @@ function subFTitleEditView($param)
                     <!-- 変更前
                     <th>名前<span class="red">（必須）</span></th>
                     -->
-                    <th>名前</th>
+                    <th>名前<span class="red">（必須）</span></th>
                     <td><input type="text" name="name" value="<?php print $param["name"]; ?>" /></td>
                 </tr>
             </table>
